@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقعي الاحترافي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #25d366; /* لون الواتساب */
+            --insta-color: #e1306c; /* لون الإنستا */
+            --dark-bg: #1a1a1a;
+            --text-light: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* الهيدر */
+        header {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 4px solid var(--primary-color);
+        }
+
+        /* القسم الرئيسي */
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h1 { margin-bottom: 10px; }
+        p { color: #666; line-height: 1.6; }
+
+        /* أزرار التواصل */
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: white;
+        }
+
+        .btn i {
+            margin-left: 10px;
+            font-size: 1.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-whatsapp {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-insta {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        /* الفوتر */
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>مرحباً بك في موقعي</h1>
+        <p>نحن هنا لخدمتك، تواصل معنا عبر الروابط التالية</p>
+    </header>
+
+    <div class="container">
+        <h2>تواصل مباشر</h2>
+        <p>يمكنك الوصول إلينا بسرعة عبر الواتساب أو متابعة أعمالنا على إنستجرام</p>
+
+        <div class="social-buttons">
+            <a href="https://wa.me/201211111111" class="btn btn-whatsapp" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                تحدث معنا عبر واتساب
+            </a>
+
+            <a href="https://www.instagram.com/saged_3zz_3amer" class="btn btn-insta" target="_blank">
+                <i class="fab fa-instagram"></i>
+                تابعنا على إنستجرام
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 جميع الحقوق محفوظة
+    </footer>
+
+</body>
+</html>
