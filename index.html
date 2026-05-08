@@ -1,127 +1,221 @@
-
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقعي الاحترافي</title>
+    <title>SAGED | Luxury Collective</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* Luxury Theme Variables */
         :root {
-            --primary-color: #007bff;
-            --secondary-color: #25d366; /* لون الواتساب */
-            --insta-color: #e1306c; /* لون الإنستا */
-            --dark-bg: #1a1a1a;
-            --text-light: #ffffff;
+            --gold: #c5a059;
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --light-gray: #f9f9f9;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+        body { 
+            font-family: 'Playfair Display', serif, 'Segoe UI'; 
+            margin: 0; 
+            background: var(--white); 
+            color: var(--black);
+            overflow-x: hidden;
         }
 
-        /* الهيدر */
-        header {
-            background-color: var(--dark-bg);
-            color: var(--text-light);
-            padding: 2rem 1rem;
+        /* Demo Header */
+        .demo-top-bar {
+            background: var(--black);
+            color: var(--gold);
             text-align: center;
-            border-bottom: 4px solid var(--primary-color);
+            padding: 8px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #333;
         }
 
-        /* القسم الرئيسي */
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        h1 { margin-bottom: 10px; }
-        p { color: #666; line-height: 1.6; }
-
-        /* أزرار التواصل */
-        .social-buttons {
+        /* Clean Luxury Navbar */
+        nav {
+            padding: 25px 8%;
             display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 30px;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #eee;
         }
 
-        .btn {
+        .logo { font-size: 28px; font-weight: 900; letter-spacing: 5px; color: var(--black); text-decoration: none; }
+
+        .cart-wrapper { position: relative; cursor: pointer; transition: 0.3s; }
+        .cart-wrapper:hover { color: var(--gold); }
+        .count-badge {
+            position: absolute;
+            top: -12px;
+            right: -15px;
+            background: var(--gold);
+            color: white;
+            font-size: 10px;
+            width: 18px;
+            height: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 15px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            color: white;
+            border-radius: 50%;
         }
 
-        .btn i {
-            margin-left: 10px;
-            font-size: 1.5rem;
+        /* Hero / Products Section */
+        .header-title { text-align: center; padding: 60px 20px 20px; text-transform: uppercase; letter-spacing: 8px; font-size: 14px; color: #888; }
+
+        .luxury-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            padding: 20px 8% 80px;
         }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        .product-item {
+            position: relative;
+            background: var(--light-gray);
+            overflow: hidden;
+            transition: 0.5s ease-in-out;
+            border: 1px solid transparent;
         }
 
-        .btn-whatsapp {
-            background-color: var(--secondary-color);
+        .product-item:hover { border-color: var(--gold); transform: scale(1.02); background: #fff; }
+
+        .product-item img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: 0.7s;
+        }
+        
+        .product-item:hover img { filter: grayscale(0%); }
+
+        .product-info { padding: 30px; text-align: center; }
+        .product-info h3 { margin: 0; font-size: 20px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; }
+        .product-info .price { margin: 15px 0; font-size: 18px; color: var(--gold); font-weight: 300; }
+
+        .add-btn {
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            padding: 15px 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.4s;
+            width: 100%;
         }
 
-        .btn-insta {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-        }
+        .add-btn:hover { background: var(--gold); }
 
-        /* الفوتر */
+        /* Footer & Social Section */
         footer {
-            margin-top: 50px;
-            padding: 20px;
+            background: var(--black);
+            color: var(--white);
+            padding: 100px 8% 50px;
             text-align: center;
-            font-size: 0.9rem;
-            color: #888;
         }
+
+        .social-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .luxury-link {
+            text-decoration: none;
+            color: var(--white);
+            border: 1px solid #444;
+            padding: 15px 40px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transition: 0.4s;
+            display: flex;
+            align-items: center;
+        }
+
+        .luxury-link i { margin-right: 15px; font-size: 18px; }
+        .luxury-link:hover { border-color: var(--gold); color: var(--gold); }
+
+        .disclaimer { font-size: 10px; color: #555; margin-top: 60px; letter-spacing: 1px; max-width: 500px; margin-inline: auto; }
+
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>مرحباً بك في موقعي</h1>
-        <p>نحن هنا لخدمتك، تواصل معنا عبر الروابط التالية</p>
-    </header>
+    <div class="demo-top-bar">
+        Portfolio Display Only &bull; Non-Transactionary Site &bull; Private Demo
+    </div>
 
-    <div class="container">
-        <h2>تواصل مباشر</h2>
-        <p>يمكنك الوصول إلينا بسرعة عبر الواتساب أو متابعة أعمالنا على إنستجرام</p>
+    <nav>
+        <a href="#" class="logo">SAGED</a>
+        <div class="cart-wrapper">
+            <i class="fa-solid fa-bag-shopping fa-xl"></i>
+            <span class="count-badge">0</span>
+        </div>
+    </nav>
 
-        <div class="social-buttons">
-            <a href="https://wa.me/201211111111" class="btn btn-whatsapp" target="_blank">
-                <i class="fab fa-whatsapp"></i>
-                تحدث معنا عبر واتساب
-            </a>
+    <div class="header-title">New Collection 2026</div>
 
-            <a href="https://www.instagram.com/saged_3zz_3amer" class="btn btn-insta" target="_blank">
-                <i class="fab fa-instagram"></i>
-                تابعنا على إنستجرام
-            </a>
+    <div class="luxury-grid">
+        <div class="product-item">
+            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=600" alt="Item">
+            <div class="product-info">
+                <h3>Vanguard Sneakers</h3>
+                <p class="price">$1,200.00</p>
+                <button class="add-btn">Inquire Now</button>
+            </div>
+        </div>
+        <div class="product-item">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600" alt="Item">
+            <div class="product-info">
+                <h3>Heritage Watch</h3>
+                <p class="price">$4,500.00</p>
+                <button class="add-btn">Inquire Now</button>
+            </div>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 جميع الحقوق محفوظة
+        <h2 style="letter-spacing: 10px; text-transform: uppercase; font-weight: 300;">Connect</h2>
+        <p style="color: #888; letter-spacing: 1px;">Stay updated with our latest releases</p>
+        
+        <div class="social-row">
+            <a href="https://www.instagram.com/saged_3zz_3amer" class="luxury-link" target="_blank">
+                <i class="fa-brands fa-instagram"></i> Instagram
+            </a>
+
+            <a href="https://wa.me/201066040567" class="luxury-link" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+            </a>
+        </div>
+
+        <p class="disclaimer">
+            * NOTICE: This website is a conceptual frontend UI showcase for presentation purposes. No data is stored, and no real transactions are occurring on this platform.
+        </p>
     </footer>
+
+    <script>
+        let bagCount = 0;
+        document.querySelectorAll('.add-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                bagCount++;
+                document.querySelector('.count-badge').innerText = bagCount;
+                alert("Demo Interaction: Item added to bag (Visual Only).");
+            });
+        });
+    </script>
 
 </body>
 </html>
