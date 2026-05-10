@@ -16,10 +16,8 @@
         * { box-sizing: border-box; transition: all 0.3s ease; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: #fff; color: var(--primary); }
 
-        /* Top Bar Notice */
         .top-bar { background: var(--primary); color: #fff; text-align: center; padding: 10px; font-size: 12px; letter-spacing: 1px; }
 
-        /* Fancy Navbar */
         nav { 
             display: flex; justify-content: space-between; align-items: center; 
             padding: 20px 6%; background: var(--glass); backdrop-filter: blur(15px);
@@ -29,8 +27,8 @@
         .nav-links { display: flex; gap: 30px; font-weight: 600; font-size: 14px; text-transform: uppercase; }
         .nav-links a { text-decoration: none; color: #555; }
         .nav-links a:hover { color: var(--gold); }
+        .cart-icon { cursor: pointer; position: relative; }
 
-        /* Hero Banner */
         .hero { 
             height: 60vh; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200');
             background-size: cover; background-position: center;
@@ -39,23 +37,20 @@
         .hero h1 { font-size: 50px; margin: 0; letter-spacing: 5px; }
         .hero p { font-size: 18px; opacity: 0.8; }
 
-        /* Sections Titles */
         .section-header { padding: 60px 6% 20px; display: flex; justify-content: space-between; align-items: flex-end; }
         .section-header h2 { font-size: 30px; margin: 0; text-transform: uppercase; }
 
-        /* Categories */
         .categories { display: flex; gap: 15px; padding: 0 6% 40px; overflow-x: auto; scrollbar-width: none; }
         .cat-chip { background: #f5f5f5; padding: 10px 25px; border-radius: 50px; white-space: nowrap; cursor: pointer; font-weight: 600; }
         .cat-chip:hover, .cat-chip.active { background: var(--primary); color: #fff; }
 
-        /* Advanced Products Grid */
         .products-grid { 
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
             gap: 30px; padding: 0 6% 80px; 
         }
         .product-card { background: #fff; border-radius: 20px; overflow: hidden; position: relative; }
         .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow); }
-        .img-container { height: 350px; position: relative; overflow: hidden; background: #f9f9f9; }
+        .img-container { height: 350px; position: relative; overflow: hidden; background: #f9f9f9; cursor: pointer; }
         .img-container img { width: 100%; height: 100%; object-fit: cover; }
         .badge { position: absolute; top: 15px; left: 15px; background: var(--gold); color: #fff; padding: 5px 12px; border-radius: 5px; font-size: 10px; font-weight: bold; }
         
@@ -69,15 +64,12 @@
         }
         .add-btn:hover { background: var(--gold); }
 
-        /* Loading State */
         .loading { text-align: center; padding: 80px 6%; font-size: 18px; color: #888; }
 
-        /* Stats Section */
         .stats { background: #f9f9f9; padding: 60px 6%; display: flex; justify-content: space-around; text-align: center; }
         .stat-item i { font-size: 30px; margin-bottom: 15px; color: var(--gold); }
         .stat-item h4 { margin: 5px 0; font-size: 20px; }
 
-        /* Footer & Socials */
         footer { background: #111; color: #fff; padding: 80px 6% 40px; }
         .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 50px; }
         .footer-col h4 { margin-bottom: 20px; color: var(--gold); }
@@ -90,6 +82,17 @@
         .social-icon:hover { background: var(--gold); transform: scale(1.1); }
 
         .demo-tag { text-align: center; padding-top: 40px; border-top: 1px solid #333; font-size: 12px; color: #666; }
+
+        /* Modal Styles */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; display: none; justify-content: center; align-items: center; }
+        .modal-content { background: #fff; padding: 30px; border-radius: 20px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; }
+        .close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 28px; cursor: pointer; color: #555; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; }
+        .cart-total { font-size: 22px; font-weight: 700; margin: 20px 0; text-align: right; }
+        .checkout-btn { width: 100%; background: var(--primary); color: #fff; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 16px; }
+        .checkout-btn:hover { background: var(--gold); }
+        .quick-view-img { width: 100%; border-radius: 15px; margin-bottom: 20px; }
+        .toast { position: fixed; bottom: 20px; right: 20px; background: var(--primary); color: #fff; padding: 15px 25px; border-radius: 12px; z-index: 3000; display: none; }
     </style>
 </head>
 <body>
@@ -105,7 +108,7 @@
         </div>
         <div style="display: flex; gap: 20px; align-items: center;">
             <i class="fa fa-search"></i>
-            <div style="position: relative;">
+            <div class="cart-icon" onclick="openCart()">
                 <i class="fa fa-shopping-bag fa-lg"></i>
                 <span id="cart-count" style="position:absolute; top:-10px; right:-10px; background:var(--gold); color:#fff; border-radius:50%; width:18px; height:18px; font-size:10px; display:flex; justify-content:center; align-items:center;">0</span>
             </div>
@@ -115,7 +118,7 @@
     <div class="hero">
         <p>THE NEW STANDARD</p>
         <h1>ELITE COLLECTION</h1>
-        <button style="padding:15px 40px; background:#fff; border:none; margin-top:20px; font-weight:bold; cursor:pointer;">SHOP NOW</button>
+        <button style="padding:15px 40px; background:#fff; border:none; margin-top:20px; font-weight:bold; cursor:pointer;" onclick="document.getElementById('products-container').scrollIntoView()">SHOP NOW</button>
     </div>
 
     <div class="section-header">
@@ -124,15 +127,14 @@
     </div>
 
     <div class="categories">
-        <div class="cat-chip active">All Products</div>
-        <div class="cat-chip">Watches</div>
-        <div class="cat-chip">Sneakers</div>
-        <div class="cat-chip">Accessories</div>
-        <div class="cat-chip">Apparel</div>
-        <div class="cat-chip">Limited Edition</div>
+        <div class="cat-chip active" onclick="filterProducts('All', this)">All Products</div>
+        <div class="cat-chip" onclick="filterProducts('Watches', this)">Watches</div>
+        <div class="cat-chip" onclick="filterProducts('Sneakers', this)">Sneakers</div>
+        <div class="cat-chip" onclick="filterProducts('Accessories', this)">Accessories</div>
+        <div class="cat-chip" onclick="filterProducts('Apparel', this)">Apparel</div>
+        <div class="cat-chip" onclick="filterProducts('Limited Edition', this)">Limited Edition</div>
     </div>
 
-    <!-- ده المكان اللي هتنزل فيه المنتجات من Supabase -->
     <div id="products-container" class="products-grid">
         <div class="loading">Loading Products... <i class="fa fa-spinner fa-spin"></i></div>
     </div>
@@ -179,19 +181,25 @@
         </div>
     </footer>
 
-    <!-- Supabase + كود المنتجات -->
+    <!-- Modal -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-content" id="modal-content"></div>
+    </div>
+    <div id="toast" class="toast"></div>
+
+    <!-- Supabase + كل التفاعلية -->
     <script type="module">
         import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
 
-        // 1. بياناتك من Supabase
         const SUPABASE_URL = 'https://iqnhqmdynxjzkmteujag.supabase.co'
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxbmhxbWR5bnhqemttdGV1amFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0NDAwMDQsImV4cCI6MjA5NDAxNjAwNH0.SA7pD9t65AqMRnn6qy6QnUiJeV8y2qobomy-gcml8Yk'
         
         const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
         const productsContainer = document.getElementById('products-container')
-        let cartCount = 0
+        
+        let allProducts = []
+        let cart = JSON.parse(localStorage.getItem('saged_cart')) || []
 
-        // 2. هات المنتجات من الداتا بيز واعرضها
         async function loadProducts() {
             const { data: products, error } = await supabase
                 .from('products')
@@ -199,7 +207,7 @@
                 .order('id', { ascending: true })
 
             if (error) {
-                productsContainer.innerHTML = `<div class="loading">Error loading products: ${error.message}</div>`
+                productsContainer.innerHTML = `<div class="loading">Error: ${error.message}</div>`
                 return
             }
 
@@ -208,10 +216,15 @@
                 return
             }
 
-            // 3. ارسم الكروت
+            allProducts = products
+            renderProducts(allProducts)
+            updateCartCount()
+        }
+
+        function renderProducts(products) {
             productsContainer.innerHTML = products.map(product => `
                 <div class="product-card">
-                    <div class="img-container">
+                    <div class="img-container" onclick="showQuickView(${product.id})">
                         ${product.badge ? `<span class="badge" style="${product.badge === 'NEW' ? 'background:#222' : ''}">${product.badge}</span>` : ''}
                         <img src="${product.image_url}" alt="${product.name}">
                     </div>
@@ -224,14 +237,105 @@
             `).join('')
         }
 
-        // 4. زرار Add to Cart
-        window.addToCart = (id) => {
-            cartCount++
-            document.getElementById('cart-count').textContent = cartCount
-            alert(`Product ${id} added to cart!`)
+        window.filterProducts = (category, btn) => {
+            document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('active'))
+            btn.classList.add('active')
+            if (category === 'All') {
+                renderProducts(allProducts)
+            } else {
+                const filtered = allProducts.filter(p => p.category === category)
+                renderProducts(filtered)
+            }
         }
 
-        // شغل الكود اول ما الصفحة تفتح
+        window.addToCart = (id) => {
+            const product = allProducts.find(p => p.id === id)
+            const existing = cart.find(item => item.id === id)
+            if (existing) {
+                existing.quantity++
+            } else {
+                cart.push({ ...product, quantity: 1 })
+            }
+            localStorage.setItem('saged_cart', JSON.stringify(cart))
+            updateCartCount()
+            showToast(`${product.name} added to cart!`)
+        }
+
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0)
+            document.getElementById('cart-count').textContent = count
+        }
+
+        window.openCart = () => {
+            let cartHTML = '<button class="close-btn" onclick="closeModal()">&times;</button><h2>Your Cart</h2>'
+            if (cart.length === 0) {
+                cartHTML += '<p style="margin:20px 0; text-align:center;">Your cart is empty</p>'
+            } else {
+                let total = 0
+                cart.forEach(item => {
+                    total += item.price * item.quantity
+                    cartHTML += `
+                        <div class="cart-item">
+                            <div><strong>${item.name}</strong><br><small>$${item.price} x ${item.quantity}</small></div>
+                            <div><strong>$${(item.price * item.quantity).toFixed(2)}</strong>
+                            <button onclick="removeFromCart(${item.id})" style="margin-left:10px;background:#dc3545;color:white;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;">X</button></div>
+                        </div>
+                    `
+                })
+                cartHTML += `<div class="cart-total">Total: $${total.toFixed(2)}</div>`
+                cartHTML += `<button class="checkout-btn" onclick="checkout()">Checkout</button>`
+            }
+            showModal(cartHTML)
+        }
+
+        window.removeFromCart = (productId) => {
+            cart = cart.filter(item => item.id !== productId)
+            localStorage.setItem('saged_cart', JSON.stringify(cart))
+            updateCartCount()
+            openCart()
+        }
+
+        window.checkout = () => {
+            showToast('Order placed successfully! This is a demo store.')
+            cart = []
+            localStorage.setItem('saged_cart', JSON.stringify(cart))
+            updateCartCount()
+            closeModal()
+        }
+
+        window.showQuickView = (productId) => {
+            const product = allProducts.find(p => p.id === productId)
+            const quickHTML = `
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+                <img src="${product.image_url}" class="quick-view-img">
+                <h2>${product.name}</h2>
+                <p class="price" style="margin:15px 0; font-size:24px;">$${parseFloat(product.price).toFixed(2)}</p>
+                <p style="color:#6c757d; margin-bottom:20px; line-height:1.6;">${product.description || 'Premium quality product from SAGED.SHOP. Crafted with excellence.'}</p>
+                <button class="checkout-btn" onclick="addToCart(${product.id}); closeModal();">Add to Cart</button>
+            `
+            showModal(quickHTML)
+        }
+
+        function showModal(content) {
+            document.getElementById('modal-content').innerHTML = content
+            document.getElementById('modal-overlay').style.display = 'flex'
+        }
+
+        window.closeModal = () => {
+            document.getElementById('modal-overlay').style.display = 'none'
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast')
+            toast.innerText = message
+            toast.style.display = 'block'
+            setTimeout(() => toast.style.display = 'none', 3000)
+        }
+
+        document.getElementById('modal-overlay').onclick = (e) => {
+            if (e.target.id === 'modal-overlay') closeModal()
+        }
+
         loadProducts()
     </script>
 
