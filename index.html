@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAGED | Elite Shopping Experience</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --primary: #111;
@@ -17,8 +16,10 @@
         * { box-sizing: border-box; transition: all 0.3s ease; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: #fff; color: var(--primary); }
 
+        /* Top Bar Notice */
         .top-bar { background: var(--primary); color: #fff; text-align: center; padding: 10px; font-size: 12px; letter-spacing: 1px; }
 
+        /* Fancy Navbar */
         nav { 
             display: flex; justify-content: space-between; align-items: center; 
             padding: 20px 6%; background: var(--glass); backdrop-filter: blur(15px);
@@ -29,6 +30,7 @@
         .nav-links a { text-decoration: none; color: #555; }
         .nav-links a:hover { color: var(--gold); }
 
+        /* Hero Banner (بيخلي الموقع يبان تقيل) */
         .hero { 
             height: 60vh; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200');
             background-size: cover; background-position: center;
@@ -37,13 +39,16 @@
         .hero h1 { font-size: 50px; margin: 0; letter-spacing: 5px; }
         .hero p { font-size: 18px; opacity: 0.8; }
 
+        /* Sections Titles */
         .section-header { padding: 60px 6% 20px; display: flex; justify-content: space-between; align-items: flex-end; }
         .section-header h2 { font-size: 30px; margin: 0; text-transform: uppercase; }
 
+        /* Categories (عشان الموقع ميبقاش فاضي) */
         .categories { display: flex; gap: 15px; padding: 0 6% 40px; overflow-x: auto; scrollbar-width: none; }
         .cat-chip { background: #f5f5f5; padding: 10px 25px; border-radius: 50px; white-space: nowrap; cursor: pointer; font-weight: 600; }
         .cat-chip:hover, .cat-chip.active { background: var(--primary); color: #fff; }
 
+        /* Advanced Products Grid */
         .products-grid { 
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
             gap: 30px; padding: 0 6% 80px; 
@@ -64,10 +69,12 @@
         }
         .add-btn:hover { background: var(--gold); }
 
+        /* Stats Section (بيزود "هيبة" الموقع) */
         .stats { background: #f9f9f9; padding: 60px 6%; display: flex; justify-content: space-around; text-align: center; }
         .stat-item i { font-size: 30px; margin-bottom: 15px; color: var(--gold); }
         .stat-item h4 { margin: 5px 0; font-size: 20px; }
 
+        /* Footer & Socials */
         footer { background: #111; color: #fff; padding: 80px 6% 40px; }
         .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 50px; }
         .footer-col h4 { margin-bottom: 20px; color: var(--gold); }
@@ -122,8 +129,7 @@
         <div class="cat-chip">Limited Edition</div>
     </div>
 
-    <div class="products-grid" id="products-container">
-        <!-- المنتجات الفيك بتاعتك زي ما هي -->
+    <div class="products-grid">
         <div class="product-card">
             <div class="img-container">
                 <span class="badge">HOT</span>
@@ -144,6 +150,7 @@
                 <div class="price">$220.00</div>
                 <button class="add-btn" onclick="alert('Demo: Added!')">Add to Cart</button>
             </div>
+        </div>
         <div class="product-card">
             <div class="img-container">
                 <span class="badge" style="background:#222;">NEW</span>
@@ -155,7 +162,6 @@
                 <button class="add-btn" onclick="alert('Demo: Added!')">Add to Cart</button>
             </div>
         </div>
-        <!-- التيشيرت بتاعك من Supabase هيضاف هنا تلقائي -->
     </div>
 
     <div class="stats">
@@ -194,51 +200,11 @@
                 <input type="email" placeholder="Enter your email" style="width:100%; padding:12px; background:#222; border:none; color:#fff; border-radius:5px;">
                 <button style="width:100%; padding:12px; margin-top:10px; background:var(--gold); border:none; color:#fff; font-weight:bold; cursor:pointer;">SUBSCRIBE</button>
             </div>
+        </div>
         <div class="demo-tag">
             &copy; 2026 SAGED STORE. This is a UI Showcase (Demo Mode). No real transactions or data storage.
         </div>
     </footer>
-
-<script>
-    // الربط بـ Supabase بتاعك
-    const SUPABASE_URL = 'https://tjsekhtgaywnzuxoqphg.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqc2VraHRnYXl3bnp1eG9xcGhnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg1MzY5MjAsImV4cCI6MjA0NDExMjkyMH0.8V7KsGnYbO7gXqYqF7kF7qF7kF7qF7kF7qF7kF7kF7k';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    // هات التيشيرت من الداتا بيز وضيفه على المنتجات الفيك
-    async function loadRealProducts() {
-        const container = document.getElementById('products-container');
-        
-        let { data: products, error } = await supabase
-            .from('products')
-            .select('*');
-
-        if (error) {
-            console.log('Error:', error.message);
-            return;
-        }
-
-        // ضيف منتجات Supabase جنب الفيك
-        products.forEach(product => {
-            const productCard = `
-                <div class="product-card">
-                    <div class="img-container">
-                        <span class="badge">REAL</span>
-                        <img src="${product.image_url}" alt="${product.name}">
-                    </div>
-                    <div class="product-info">
-                        <h3>${product.name}</h3>
-                        <div class="price">$${product.price}</div>
-                        <button class="add-btn" onclick="alert('Demo: Added ${product.name}!')">Add to Cart</button>
-                    </div>
-                </div>
-            `;
-            container.innerHTML += productCard;
-        });
-    }
-
-    loadRealProducts();
-</script>
 
 </body>
 </html>
